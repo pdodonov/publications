@@ -1,11 +1,11 @@
-Supplementary Material 
+# Supplementary Material 
 
-Effects of land conversion on ant functional diversity: a global review[W1]
+# Effects of land conversion on ant functional diversity: a global review[W1]
 
-Roberta de Jesus Santos, Pavel Dodonov, Jacques Hubert Charles Delabie
+# Roberta de Jesus Santos, Pavel Dodonov, Jacques Hubert Charles Delabie
 
 
-Appendix 2. Statistical analysis script
+# Appendix 2. Statistical analysis script
 
 
 
