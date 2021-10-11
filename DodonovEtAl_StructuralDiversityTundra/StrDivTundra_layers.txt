@@ -1,0 +1,28 @@
+Element	Measures	Ground	Herbaceous	Woody	Deadwood	LivePlants
+Deadwood_log	Number, diameter, height	0	0	1	1	0
+Deadwood_shrub	Number, diameter, height	0	0	1	1	0
+Deadwood_snag	Number, diameter, height	0	0	1	1	0
+Ground_gravel	Cover	1	0	0	0	0
+Ground_rock	Cover	1	0	0	0	0
+Ground_soil	Cover	1	0	0	0	0
+Herbaceous_forb	Cover, height	0	1	0	0	1
+Herbaceous_graminoid	Cover, height	0	1	0	0	1
+Herbaceous_horsetail	Cover, height	0	1	0	0	1
+Herbaceous_other	Cover, height	0	1	0	0	1
+Lichen_crustose	Cover	1	0	0	0	0
+Lichen_folious	Cover	1	0	0	0	0
+Lichen_fruticose1	Cover	1	0	0	0	0
+Lichen_fruticose2	Cover	1	0	0	0	0
+Litter_broadleaf	Cover	1	0	0	0	0
+Litter_conifer	Cover	1	0	0	0	0
+Litter_graminoid	Cover, height	1	1	0	0	0
+Litter_herbaceous	Cover, height	1	1	0	0	0
+Litter_lichen	Cover	1	0	0	0	0
+Litter_twig	Cover, diameter	1	0	0	1	0
+Moss_other	Cover	1	0	0	0	0
+Moss_sphagnum-like	Cover	1	0	0	0	0
+Shrub_prostrate	Cover, height	1	0	0	0	1
+Shrub_standing	Number, diameter, height	0	0	1	0	1
+Tree_layering	Number, diameter, height	0	0	1	0	1
+Tree_skirt	Number, diameter, height	0	0	1	0	1
+Tree_standing	Number, diameter, height	0	0	1	0	1
