@@ -1,0 +1,693 @@
+---
+title: "Supplementary Material 3 - Spatial patterns of structural diversity across the boreal forest-tundra ecotone in Churchill, Canada"  
+author: "Pavel Dodonov, Karen A. Harper"
+date: "2022-03-27"  
+output: pdf_document  
+toc: true  
+toc_depth: 3
+number_sections: true  
+fontsize: 11pt  
+---
+
+\newpage
+# Scales of spatial variation
+```{r echo=FALSE}
+setwd("/home/pavel/Profissional/Pesquisa/MyPapers_working/Pavel_2014_StrDivTundra")
+
+load("data/StrDivTundra_image_all.RData") # In case you quit R after calculating the wavelets
+
+
+# Transform the list into a data.frame
+
+Nlines <- numeric()
+for(i in 1:length(StrDiv.wav)) {
+	Nlines[i] <- length(StrDiv.wav[[i]][[1]])
+}
+lines.tot <- sum(Nlines)
+
+StrDiv.wav.df <- data.frame(foo=rep(names(StrDiv.wav)[1],length(StrDiv.wav[[1]]$Scales)),  Scales=StrDiv.wav[[1]]$Scales, ScaleVar_Obs = StrDiv.wav[[1]]$ScaleVar_Obs, ScaleVar_CI = StrDiv.wav[[1]]$ScaleVar_CI[1,]) 
+
+for(i in 2:length(StrDiv.wav)) {
+	foo <- data.frame(foo=rep(names(StrDiv.wav)[i],length(StrDiv.wav[[i]]$Scales)),  Scales=StrDiv.wav[[i]]$Scales, ScaleVar_Obs = StrDiv.wav[[i]]$ScaleVar_Obs, ScaleVar_CI = StrDiv.wav[[i]]$ScaleVar_CI[1,])
+	StrDiv.wav.df <- rbind(StrDiv.wav.df, foo)
+}
+
+bar <- strsplit(as.character(StrDiv.wav.df$foo),"_")
+bar <- matrix(unlist(bar), ncol=3, byrow=T)
+
+StrDiv.wav.df$Layer <- bar[,1]
+StrDiv.wav.df$Transect <- bar[,2]
+StrDiv.wav.df$Index <- bar[,3]
+
+StrDiv.wav.df <- StrDiv.wav.df[,c("Layer", "Transect", "Index", "Scales", "ScaleVar_Obs", "ScaleVar_CI")]
+
+# Remove NA
+StrDiv.wav.df <- subset(StrDiv.wav.df, !is.na(ScaleVar_Obs))
+
+# Make plots - scale variance, for StrS
+scale.range <- range(StrDiv.wav.df$Scales)
+```
+## StrS
+
+Scale variance for the number of structural elements (StrS) at each transect, for the different structural diversity measures. The scale wariance was calculated based on the Mexican Hat wavelet. The dashed line represents confidence intervals for a complete serial randomness null model, based on 9999 randomizations plus the original data.
+
+```{r comment='>', fig.height=8, echo=FALSE}
+par(mfrow=c(Nlayers, Ntransects), mar=c(2,2,1,1), oma=c(5,8,3,3))
+for(i in 1:Nlayers) {
+	for(j in 1:Ntransects) {
+		foo <- subset(StrDiv.wav.df, 
+			Layer==layer.names[i] & Transect==transects[j] & Index=="StrS")
+		plot(ScaleVar_Obs ~ Scales, type="l", lwd=1, xlim=scale.range, data=foo, main="")
+		lines(ScaleVar_CI ~ Scales, lty=2, lwd=1, data=foo, col="gray40")
+	}
+}
+mtext(side=1, text="Scale (m)", outer=T, line=1.5)
+mtext(side=2, text="Scale variance", outer=T, line=3.5)
+mtext(side=2, outer=T, text=c("Ground", "Herbaceous", "Woody", "Deadwood", 
+	"Live \n plants"), at=c(0.90, 0.70, 0.50, 0.30, 0.10), line=1.5)
+mtext(side=3, outer=T, text=c("Ecotone 1", "Ecotone 2", "Tundra 1", 
+	"Tundra 2", "Tundra 3"), at=c(0.10, 0.30, 0.50, 0.70, 0.90), line=0)
+```
+
+\newpage
+## StrD
+
+Scale variance for the dissimilarity-based measure of structural diversity (StrD) at each transect, for the different structural diversity measures. The scale wariance was calculated based on the Mexican Hat wavelet. The dashed line represents confidence intervals for a complete serial randomness null model, based on 9999 randomizations plus the original data.
+
+```{r comment='>', fig.height=8, echo=FALSE}
+par(mfrow=c(Nlayers, Ntransects), mar=c(2,2,1,1), oma=c(5,8,3,3))
+for(i in 1:Nlayers) {
+	for(j in 1:Ntransects) {
+		foo <- subset(StrDiv.wav.df, 
+			Layer==layer.names[i] & Transect==transects[j] & Index=="StrD")
+		plot(ScaleVar_Obs ~ Scales, type="l", lwd=1, xlim=scale.range, data=foo, main="")
+		lines(ScaleVar_CI ~ Scales, lty=2, lwd=1, data=foo, col="gray40")
+	}
+}
+mtext(side=1, text="Scale (m)", outer=T, line=1.5)
+mtext(side=2, text="Scale variance", outer=T, line=3.5)
+mtext(side=2, outer=T, 
+	text=c("Ground", "Herbaceous", "Woody", "Deadwood", "Live \n plants"), 
+	at=c(0.90, 0.70, 0.50, 0.30, 0.10), line=1.5)
+mtext(side=3, outer=T, 
+	text=c("Ecotone 1", "Ecotone 2", "Tundra 1", "Tundra 2", "Tundra 3"), 
+	at=c(0.10, 0.30, 0.50, 0.70, 0.90), line=0)
+```
+
+\newpage
+
+# Model selection
+## Tundra
+### Tundra - StrS
+#### Tundra - StrS - ground
+```{r comment='>'}
+mod.StrS.tundra.ground.gee.full <- geeglm(StrS ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.tundra.ground, family=poisson,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.tundra.ground.gee.full), main="")
+plot(resid(mod.StrS.tundra.ground.gee.full) ~ predict(mod.StrS.tundra.ground.gee.full))
+plot(resid(mod.StrS.tundra.ground.gee.full), type="l")
+shapiro.test(resid(mod.StrS.tundra.ground.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.tundra.ground.gee <- dredge(mod.StrS.tundra.ground.gee.full)
+dredge.StrS.tundra.ground.gee
+## Simplest model: null
+```
+\newpage
+#### Tundra - StrS - herbaceous
+```{r comment='>'}
+mod.StrS.tundra.herbaceous.gee.full <- geeglm(StrS ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.tundra.herbaceous, family=poisson,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.tundra.herbaceous.gee.full), main="")
+plot(resid(mod.StrS.tundra.herbaceous.gee.full) ~ predict(mod.StrS.tundra.herbaceous.gee.full))
+plot(resid(mod.StrS.tundra.herbaceous.gee.full), type="l")
+shapiro.test(resid(mod.StrS.tundra.herbaceous.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.tundra.herbaceous.gee <- dredge(mod.StrS.tundra.herbaceous.gee.full)
+dredge.StrS.tundra.herbaceous.gee
+## Simplest model: distance from lake
+```
+\newpage
+#### Tundra - StrS - woody
+```{r comment='>'}
+mod.StrS.tundra.woody.gee.full <- geeglm(StrS ~ Altitude + DistFromLake + pH +  
+	Microtopography, data=data.full.tundra.woody, family=poisson, id=Transect,  
+	corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.tundra.woody.gee.full), main="")
+plot(resid(mod.StrS.tundra.woody.gee.full) ~ predict(mod.StrS.tundra.woody.gee.full))
+plot(resid(mod.StrS.tundra.woody.gee.full), type="l")
+shapiro.test(resid(mod.StrS.tundra.woody.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.tundra.woody.gee <- dredge(mod.StrS.tundra.woody.gee.full)
+dredge.StrS.tundra.woody.gee
+## The simplest model contains pH
+```
+\newpage
+#### Tundra - StrS - deadwood
+```{r comment='>'}
+mod.StrS.tundra.deadwood.gee.full <- geeglm(StrS ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.tundra.deadwood, family=poisson,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.tundra.deadwood.gee.full), main="")
+plot(resid(mod.StrS.tundra.deadwood.gee.full) ~ predict(mod.StrS.tundra.deadwood.gee.full))
+plot(resid(mod.StrS.tundra.deadwood.gee.full), type="l")
+shapiro.test(resid(mod.StrS.tundra.deadwood.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.tundra.deadwood.gee <- dredge(mod.StrS.tundra.deadwood.gee.full)
+dredge.StrS.tundra.deadwood.gee
+## The simplest model contains distance from lake and pH
+```
+\newpage
+#### Tundra - StrS - liveplants
+```{r comment='>'}
+mod.StrS.tundra.liveplants.gee.full <- geeglm(StrS ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.tundra.liveplants, family=poisson,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.tundra.liveplants.gee.full), main="")
+plot(resid(mod.StrS.tundra.liveplants.gee.full) ~ predict(mod.StrS.tundra.liveplants.gee.full))
+plot(resid(mod.StrS.tundra.liveplants.gee.full), type="l")
+shapiro.test(resid(mod.StrS.tundra.liveplants.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.tundra.liveplants.gee <- dredge(mod.StrS.tundra.liveplants.gee.full)
+dredge.StrS.tundra.liveplants.gee
+## Simplest model: distance from lakes
+```
+\newpage
+### Tundra - StrD
+#### Tundra - StrD - ground
+```{r comment='>'}
+mod.StrD.tundra.ground.gee.full <- geeglm(StrD ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.tundra.ground, family=gaussian,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.tundra.ground.gee.full), main="")
+plot(resid(mod.StrD.tundra.ground.gee.full) ~ predict(mod.StrD.tundra.ground.gee.full))
+plot(resid(mod.StrD.tundra.ground.gee.full), type="l")
+shapiro.test(resid(mod.StrD.tundra.ground.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.tundra.ground.gee <- dredge(mod.StrD.tundra.ground.gee.full)
+dredge.StrD.tundra.ground.gee
+## Two simplest models: one with distance from lake, one with microtopography
+```
+\newpage
+#### Tundra - StrD - herbaceous
+```{r comment='>'}
+mod.StrD.tundra.herbaceous.gee.full <- geeglm(StrD ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.tundra.herbaceous, family=gaussian,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.tundra.herbaceous.gee.full), main="")
+plot(resid(mod.StrD.tundra.herbaceous.gee.full) ~ predict(mod.StrD.tundra.herbaceous.gee.full))
+plot(resid(mod.StrD.tundra.herbaceous.gee.full), type="l")
+shapiro.test(resid(mod.StrD.tundra.herbaceous.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.tundra.herbaceous.gee <- dredge(mod.StrD.tundra.herbaceous.gee.full)
+dredge.StrD.tundra.herbaceous.gee
+## Simplest model: distance from lake, microtopography, pH
+```
+\newpage
+#### Tundra - StrD - woody
+```{r comment='>'}
+mod.StrD.tundra.woody.gee.full <- geeglm(StrD ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.tundra.woody, family=gaussian,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.tundra.woody.gee.full), main="")
+plot(resid(mod.StrD.tundra.woody.gee.full) ~ predict(mod.StrD.tundra.woody.gee.full))
+plot(resid(mod.StrD.tundra.woody.gee.full), type="l")
+shapiro.test(resid(mod.StrD.tundra.woody.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.tundra.woody.gee <- dredge(mod.StrD.tundra.woody.gee.full)
+dredge.StrD.tundra.woody.gee
+## The simplest model is the null model
+```
+\newpage
+#### Tundra - StrD - deadwood
+```{r comment='>'}
+mod.StrD.tundra.deadwood.gee.full <- geeglm(StrD ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.tundra.deadwood, family=gaussian,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.tundra.deadwood.gee.full), main="")
+plot(resid(mod.StrD.tundra.deadwood.gee.full) ~ predict(mod.StrD.tundra.deadwood.gee.full))
+plot(resid(mod.StrD.tundra.deadwood.gee.full), type="l")
+shapiro.test(resid(mod.StrD.tundra.deadwood.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.tundra.deadwood.gee <- dredge(mod.StrD.tundra.deadwood.gee.full)
+dredge.StrD.tundra.deadwood.gee
+## Three simplest models: one with distance from lake, one with altitude and one with pH
+```
+\newpage
+#### Tundra - StrD - liveplants
+```{r comment='>'}
+mod.StrD.tundra.liveplants.gee.full <- geeglm(StrD ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.tundra.liveplants, family=gaussian,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.tundra.liveplants.gee.full), main="")
+plot(resid(mod.StrD.tundra.liveplants.gee.full) ~ predict(mod.StrD.tundra.liveplants.gee.full))
+plot(resid(mod.StrD.tundra.liveplants.gee.full), type="l")
+shapiro.test(resid(mod.StrD.tundra.liveplants.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.tundra.liveplants.gee <- dredge(mod.StrD.tundra.liveplants.gee.full)
+dredge.StrD.tundra.liveplants.gee
+## Simplest model: distance from lake
+```
+\newpage
+## Ecotone
+### Ecotone - StrS
+#### Ecotone - StrS - ground
+```{r comment='>'}
+mod.StrS.ecotone.ground.gee.full <- geeglm(StrS ~ Altitude + DistFromLake +  
+	pH + Microtopography, data=data.full.ecotone.ground, family=poisson,  
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.ecotone.ground.gee.full), main="")
+plot(resid(mod.StrS.ecotone.ground.gee.full) ~ predict(mod.StrS.ecotone.ground.gee.full))
+plot(resid(mod.StrS.ecotone.ground.gee.full), type="l")
+shapiro.test(resid(mod.StrS.ecotone.ground.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.ecotone.ground.gee <- dredge(mod.StrS.ecotone.ground.gee.full)
+dredge.StrS.ecotone.ground.gee 
+## Simplest model: distance from lake and microtopography
+```
+\newpage
+#### Ecotone - StrS - herbaceous
+```{r comment='>'}
+mod.StrS.ecotone.herbaceous.gee.full <- geeglm(StrS ~ Altitude + DistFromLake + 
+	pH + Microtopography, data=data.full.ecotone.herbaceous, family=poisson, 
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.ecotone.herbaceous.gee.full), main="")
+plot(resid(mod.StrS.ecotone.herbaceous.gee.full) ~ predict(mod.StrS.ecotone.herbaceous.gee.full))
+plot(resid(mod.StrS.ecotone.herbaceous.gee.full), type="l")
+shapiro.test(resid(mod.StrS.ecotone.herbaceous.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.ecotone.herbaceous.gee <- dredge(mod.StrS.ecotone.herbaceous.gee.full)
+dredge.StrS.ecotone.herbaceous.gee 
+## Simplest model: null model
+```
+\newpage
+#### Ecotone - StrS - woody
+```{r comment='>'}
+mod.StrS.ecotone.woody.gee.full <- geeglm(StrS ~ Altitude + DistFromLake + 
+	pH + Microtopography, data=data.full.ecotone.woody, family=poisson, 
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.ecotone.woody.gee.full), main="")
+plot(resid(mod.StrS.ecotone.woody.gee.full) ~ predict(mod.StrS.ecotone.woody.gee.full))
+plot(resid(mod.StrS.ecotone.woody.gee.full), type="l")
+shapiro.test(resid(mod.StrS.ecotone.woody.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.ecotone.woody.gee <- dredge(mod.StrS.ecotone.woody.gee.full)
+dredge.StrS.ecotone.woody.gee 
+## Simplest model: microtopography and pH
+```
+\newpage
+#### Ecotone - StrS - deadwood
+```{r comment='>'}
+mod.StrS.ecotone.deadwood.gee.full <- geeglm(StrS ~ Altitude + DistFromLake + 
+	pH + Microtopography, data=data.full.ecotone.deadwood, family=poisson, 
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.ecotone.deadwood.gee.full), main="")
+plot(resid(mod.StrS.ecotone.deadwood.gee.full) ~ predict(mod.StrS.ecotone.deadwood.gee.full))
+plot(resid(mod.StrS.ecotone.deadwood.gee.full), type="l")
+shapiro.test(resid(mod.StrS.ecotone.deadwood.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.ecotone.deadwood.gee <- dredge(mod.StrS.ecotone.deadwood.gee.full)
+dredge.StrS.ecotone.deadwood.gee 
+## Simplest model: microtopography and pH
+```
+\newpage
+#### Ecotone - StrS - liveplants
+```{r comment='>'}
+mod.StrS.ecotone.liveplants.gee.full <- geeglm(StrS ~ Altitude + DistFromLake + 
+	pH + Microtopography, data=data.full.ecotone.liveplants, family=poisson, 
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrS.ecotone.liveplants.gee.full), main="")
+plot(resid(mod.StrS.ecotone.liveplants.gee.full) ~ predict(mod.StrS.ecotone.liveplants.gee.full))
+plot(resid(mod.StrS.ecotone.liveplants.gee.full), type="l")
+shapiro.test(resid(mod.StrS.ecotone.liveplants.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrS.ecotone.liveplants.gee <- dredge(mod.StrS.ecotone.liveplants.gee.full)
+dredge.StrS.ecotone.liveplants.gee 
+## Simplest model: altitude and pH
+```
+\newpage
+### Ecotone - StrD
+#### Ecotone - StrD - ground
+```{r comment='>'}
+mod.StrD.ecotone.ground.gee.full <- geeglm(StrD ~ Altitude + DistFromLake + 
+	pH + Microtopography, data=data.full.ecotone.ground, family=gaussian, 
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.ecotone.ground.gee.full), main="")
+plot(resid(mod.StrD.ecotone.ground.gee.full) ~ predict(mod.StrD.ecotone.ground.gee.full))
+plot(resid(mod.StrD.ecotone.ground.gee.full), type="l")
+shapiro.test(resid(mod.StrD.ecotone.ground.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.ecotone.ground.gee <- dredge(mod.StrD.ecotone.ground.gee.full)
+dredge.StrD.ecotone.ground.gee 
+## Simplest model: microtopography
+```
+\newpage
+#### Ecotone - StrD - herbaceous
+```{r comment='>'}
+mod.StrD.ecotone.herbaceous.gee.full <- geeglm(StrD ~ Altitude + DistFromLake + 
+	pH + Microtopography, data=data.full.ecotone.herbaceous, family=gaussian, 
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.ecotone.herbaceous.gee.full), main="")
+plot(resid(mod.StrD.ecotone.herbaceous.gee.full) ~ predict(mod.StrD.ecotone.herbaceous.gee.full))
+plot(resid(mod.StrD.ecotone.herbaceous.gee.full), type="l")
+shapiro.test(resid(mod.StrD.ecotone.herbaceous.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.ecotone.herbaceous.gee <- dredge(mod.StrD.ecotone.herbaceous.gee.full)
+dredge.StrD.ecotone.herbaceous.gee 
+## Simplest model: null
+```
+\newpage
+#### Ecotone - StrD - woody
+```{r comment='>'}
+mod.StrD.ecotone.woody.gee.full <- geeglm(StrD ~ Altitude + DistFromLake + 
+	pH + Microtopography, data=data.full.ecotone.woody, family=gaussian, 
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.ecotone.woody.gee.full), main="")
+plot(resid(mod.StrD.ecotone.woody.gee.full) ~ predict(mod.StrD.ecotone.woody.gee.full))
+plot(resid(mod.StrD.ecotone.woody.gee.full), type="l")
+shapiro.test(resid(mod.StrD.ecotone.woody.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.ecotone.woody.gee <- dredge(mod.StrD.ecotone.woody.gee.full)
+dredge.StrD.ecotone.woody.gee 
+## Simplest model: null
+```
+\newpage
+#### Ecotone - StrD - deadwood
+```{r comment='>'}
+mod.StrD.ecotone.deadwood.gee.full <- geeglm(StrD ~ Altitude + DistFromLake + 
+	pH + Microtopography, data=data.full.ecotone.deadwood, family=gaussian, 
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.ecotone.deadwood.gee.full), main="")
+plot(resid(mod.StrD.ecotone.deadwood.gee.full) ~ predict(mod.StrD.ecotone.deadwood.gee.full))
+plot(resid(mod.StrD.ecotone.deadwood.gee.full), type="l")
+shapiro.test(resid(mod.StrD.ecotone.deadwood.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.ecotone.deadwood.gee <- dredge(mod.StrD.ecotone.deadwood.gee.full)
+dredge.StrD.ecotone.deadwood.gee 
+## Simplest model: null
+```
+\newpage
+#### Ecotone - StrD - liveplants
+```{r comment='>'}
+mod.StrD.ecotone.liveplants.gee.full <- geeglm(StrD ~ Altitude + DistFromLake + 
+	pH + Microtopography, data=data.full.ecotone.liveplants, family=gaussian, 
+	id=Transect, corstr="ar1", na.action=na.fail)
+par(mfrow=c(2,2), mar=c(4,4,2,2))
+hist(resid(mod.StrD.ecotone.liveplants.gee.full), main="")
+plot(resid(mod.StrD.ecotone.liveplants.gee.full) ~ predict(mod.StrD.ecotone.liveplants.gee.full))
+plot(resid(mod.StrD.ecotone.liveplants.gee.full), type="l")
+shapiro.test(resid(mod.StrD.ecotone.liveplants.gee.full))
+```
+\newpage
+```{r comment='>'}
+dredge.StrD.ecotone.liveplants.gee <- dredge(mod.StrD.ecotone.liveplants.gee.full)
+dredge.StrD.ecotone.liveplants.gee 
+## Simplest model: pH
+```
+\newpage
+# Plot showing the relationship between structural diversity and explanatory variables
+
+## StrS - Tundra
+
+```{r comment='>', fig.height=8, echo=FALSE}
+
+library(scales)
+
+
+newdata.tundra.DistFromLake <- seq(min(data.full.tundra$DistFromLake), max(data.full.tundra$DistFromLake), length.out=100)
+newdata.tundra.pH <- seq(min(data.full.tundra$pH), max(data.full.tundra$pH), length.out=100)
+
+predict.tundra.herbaceous.StrS.DistFromLake <- predict(mod.StrS.tundra.herbaceous.gee.final, newdata=list(DistFromLake=newdata.tundra.DistFromLake), type="response")
+predict.tundra.woody.StrS.pH <- predict(mod.StrS.tundra.woody.gee.final, newdata=list(pH=newdata.tundra.pH), type="response")
+predict.tundra.deadwood.StrS.DistFromLake <- predict(mod.StrS.tundra.deadwood.gee.final, newdata=list(DistFromLake = newdata.tundra.DistFromLake, pH = rep(mean(data.full.tundra$pH), 100)), type="response")
+predict.tundra.deadwood.StrS.pH <- predict(mod.StrS.tundra.deadwood.gee.final, newdata=list(pH = newdata.tundra.pH, DistFromLake = rep(mean(data.full.tundra$DistFromLake), 100)), type="response")
+predict.tundra.liveplants.StrS.DistFromLake <- predict(mod.StrS.tundra.liveplants.gee.final, newdata=list(DistFromLake = newdata.tundra.DistFromLake), type="response")
+
+
+par(mfrow = c(5,4), mar=c(1,1,2,1), oma=c(6,5,2,2))
+plot(StrS ~ Altitude, data=data.full.tundra.ground, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="A)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ DistFromLake, data=data.full.tundra.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="B)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ Microtopography, data=data.full.tundra.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="C)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ pH, data=data.full.tundra.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="D)", outer=F, adj=0, cex=1.1)
+
+plot(StrS ~ Altitude, data=data.full.tundra.herbaceous, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="E)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ DistFromLake, data=data.full.tundra.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="F)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.herbaceous.StrS.DistFromLake ~ newdata.tundra.DistFromLake, lwd=2, col="blue")
+plot(StrS ~ Microtopography, data=data.full.tundra.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="G)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ pH, data=data.full.tundra.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="H)", outer=F, adj=0, cex=1.1)
+
+
+plot(StrS ~ Altitude, data=data.full.tundra.woody, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="I)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ DistFromLake, data=data.full.tundra.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="J)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ Microtopography, data=data.full.tundra.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="K)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ pH, data=data.full.tundra.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="L)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.woody.StrS.pH ~ newdata.tundra.pH, lwd=2, col="blue")
+
+plot(StrS ~ Altitude, data=data.full.tundra.deadwood, xlab="", ylab="", yaxt="n", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="M)", outer=F, adj=0, cex=1.1)
+axis(side=2, las=1, at=c(0,1,2,3,4))
+plot(StrS ~ DistFromLake, data=data.full.tundra.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="N)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.deadwood.StrS.DistFromLake ~ newdata.tundra.DistFromLake, lwd=2, col="blue")
+plot(StrS ~ Microtopography, data=data.full.tundra.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="O)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ pH, data=data.full.tundra.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="P)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.deadwood.StrS.pH ~ newdata.tundra.pH, lwd=2, col="blue")
+
+plot(StrS ~ Altitude, data=data.full.tundra.liveplants, xlab="Elevation (m)", ylab="", las=1, yaxt="s", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="Q)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ DistFromLake, data=data.full.tundra.liveplants, xlab="Distance from/n lakes (m)", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="R)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.liveplants.StrS.DistFromLake ~ newdata.tundra.DistFromLake, lwd=2, col="blue")
+plot(StrS ~ Microtopography, data=data.full.tundra.liveplants, xlab="Microtopography (cm²)", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="S)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ pH, data=data.full.tundra.liveplants, xlab="pH", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="T)", outer=F, adj=0, cex=1.1)
+
+mtext(side=1, at=0.125 + 0.25*c(0,1,2,3), text=c("Elevation (m)", "Distance from\nlakes (m)", "Variance in\nmicrotopography (cm²)", "pH"), outer=T, line=3, padj=0)
+mtext(side=2, at=c(0.1, 0.3, 0.5, 0.7, 0.9), text=c("Live plants", "Deadwood", "Woody", "Herbaceous", "Ground"), outer=T, line=2)
+mtext(side=2, text="Number of structural elements", outer=T, line=3.5)
+
+```
+
+\newpage
+## StrS - Ecotone
+```{r echo=FALSE, fig.height=8}
+
+newdata.ecotone.DistFromLake <- seq(min(data.full.ecotone$DistFromLake), max(data.full.ecotone$DistFromLake), length.out=100)
+newdata.ecotone.pH <- seq(min(data.full.ecotone$pH), max(data.full.ecotone$pH), length.out=100)
+newdata.ecotone.Altitude <- seq(min(data.full.ecotone$Altitude), max(data.full.ecotone$Altitude), length.out=100)
+newdata.ecotone.Microtopography <- seq(min(data.full.ecotone$Microtopography), max(data.full.ecotone$Microtopography), length.out=100)
+
+
+
+predict.ecotone.ground.StrS.Microtopography <- predict(mod.StrS.ecotone.ground.gee.final, newdata=list(Microtopography = newdata.ecotone.Microtopography, DistFromLake = rep(mean(data.full.ecotone$DistFromLake), 100)), type="response")
+predict.ecotone.ground.StrS.DistFromLake <- predict(mod.StrS.ecotone.ground.gee.final, newdata=list(DistFromLake = newdata.ecotone.DistFromLake, Microtopography = rep(mean(data.full.ecotone$Microtopography), 100)), type="response")
+
+predict.ecotone.woody.StrS.Microtopography <- predict(mod.StrS.ecotone.woody.gee.final, newdata=list(Microtopography = newdata.ecotone.Microtopography, pH = rep(mean(data.full.ecotone$pH), 100)), type="response")
+predict.ecotone.woody.StrS.pH <- predict(mod.StrS.ecotone.woody.gee.final, newdata=list(pH = newdata.ecotone.pH, Microtopography = rep(mean(data.full.ecotone$Microtopography), 100)), type="response")
+
+predict.ecotone.deadwood.StrS.Microtopography <- predict(mod.StrS.ecotone.deadwood.gee.final, newdata=list(Microtopography = newdata.ecotone.Microtopography, pH = rep(mean(data.full.ecotone$pH), 100)), type="response")
+predict.ecotone.deadwood.StrS.pH <- predict(mod.StrS.ecotone.deadwood.gee.final, newdata=list(pH = newdata.ecotone.pH, Microtopography = rep(mean(data.full.ecotone$Microtopography), 100)), type="response")
+
+predict.ecotone.liveplants.StrS.Altitude <- predict(mod.StrS.ecotone.liveplants.gee.final, newdata=list(Altitude = newdata.ecotone.Altitude, pH = rep(mean(data.full.ecotone$pH), 100)), type="response")
+predict.ecotone.liveplants.StrS.pH <- predict(mod.StrS.ecotone.liveplants.gee.final, newdata=list(pH = newdata.ecotone.pH, Altitude = rep(mean(data.full.ecotone$Altitude), 100)), type="response")
+
+par(mfrow = c(5,4), mar=c(1,1,2,1), oma=c(6,5,2,2))
+plot(StrS ~ Altitude, data=data.full.ecotone.ground, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="A)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ DistFromLake, data=data.full.ecotone.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="B)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.ground.StrS.DistFromLake ~ newdata.ecotone.DistFromLake, lwd=2, col="blue")
+plot(StrS ~ Microtopography, data=data.full.ecotone.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="C)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.ground.StrS.Microtopography ~ newdata.ecotone.Microtopography, lwd=2, col="blue")
+plot(StrS ~ pH, data=data.full.ecotone.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="D)", outer=F, adj=0, cex=1.1)
+
+plot(StrS ~ Altitude, data=data.full.ecotone.herbaceous, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="E)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ DistFromLake, data=data.full.ecotone.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="F)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ Microtopography, data=data.full.ecotone.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="G)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ pH, data=data.full.ecotone.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="H)", outer=F, adj=0, cex=1.1)
+
+
+plot(StrS ~ Altitude, data=data.full.ecotone.woody, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="I)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ DistFromLake, data=data.full.ecotone.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="J)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ Microtopography, data=data.full.ecotone.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="K)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.woody.StrS.Microtopography ~ newdata.ecotone.Microtopography, lwd=2, col="blue")
+plot(StrS ~ pH, data=data.full.ecotone.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="L)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.woody.StrS.pH ~ newdata.ecotone.pH, lwd=2, col="blue")
+
+plot(StrS ~ Altitude, data=data.full.ecotone.deadwood, xlab="", ylab="", yaxt="n", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="M)", outer=F, adj=0, cex=1.1)
+axis(side=2, las=1, at=c(0,1,2,3,4))
+plot(StrS ~ DistFromLake, data=data.full.ecotone.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="N)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ Microtopography, data=data.full.ecotone.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="O)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.deadwood.StrS.Microtopography ~ newdata.ecotone.Microtopography, lwd=2, col="blue")
+plot(StrS ~ pH, data=data.full.ecotone.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="P)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.deadwood.StrS.pH ~ newdata.ecotone.pH, lwd=2, col="blue")
+
+plot(StrS ~ Altitude, data=data.full.ecotone.liveplants, xlab="Elevation (m)", ylab="", las=1, yaxt="s", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="Q)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.liveplants.StrS.Altitude ~ newdata.ecotone.Altitude, lwd=2, col="blue")
+plot(StrS ~ DistFromLake, data=data.full.ecotone.liveplants, xlab="Distance from/n lakes (m)", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="R)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ Microtopography, data=data.full.ecotone.liveplants, xlab="Microtopography (cm²)", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="S)", outer=F, adj=0, cex=1.1)
+plot(StrS ~ pH, data=data.full.ecotone.liveplants, xlab="pH", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="T)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.liveplants.StrS.pH ~ newdata.ecotone.pH, lwd=2, col="blue")
+
+mtext(side=1, at=0.125 + 0.25*c(0,1,2,3), text=c("Elevation (m)", "Distance from\nlakes (m)", "Variance in\nmicrotopography (cm²)", "pH"), outer=T, line=3, padj=0)
+mtext(side=2, at=c(0.1, 0.3, 0.5, 0.7, 0.9), text=c("Live plants", "Deadwood", "Woody", "Herbaceous", "Ground"), outer=T, line=2)
+mtext(side=2, text="Number of structural elements", outer=T, line=3.5)
+```
+
+## StrD - Tundra
+```{r echo=FALSE, fig.height=8}
+par(mfrow = c(5,4), mar=c(1,1,2,1), oma=c(6,5,2,2))
+plot(StrD ~ Altitude, data=data.full.tundra.ground, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="A)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ DistFromLake, data=data.full.tundra.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="B)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.ground.StrD.DistFromLake ~ newdata.tundra.DistFromLake, lwd=2, col="blue")
+plot(StrD ~ Microtopography, data=data.full.tundra.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="C)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.ground.StrD.Microtopography ~ newdata.tundra.Microtopography, lwd=2, col="blue")
+plot(StrD ~ pH, data=data.full.tundra.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="D)", outer=F, adj=0, cex=1.1)
+
+plot(StrD ~ Altitude, data=data.full.tundra.herbaceous, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="E)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ DistFromLake, data=data.full.tundra.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="F)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.herbaceous.StrD.DistFromLake ~ newdata.tundra.DistFromLake, lwd=2, col="blue")
+plot(StrD ~ Microtopography, data=data.full.tundra.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="G)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.herbaceous.StrD.Microtopography ~ newdata.tundra.Microtopography, lwd=2, col="blue")
+plot(StrD ~ pH, data=data.full.tundra.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="H)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.herbaceous.StrD.pH ~ newdata.tundra.pH, lwd=2, col="blue")
+
+
+plot(StrD ~ Altitude, data=data.full.tundra.woody, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="I)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ DistFromLake, data=data.full.tundra.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="J)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ Microtopography, data=data.full.tundra.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="K)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ pH, data=data.full.tundra.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="L)", outer=F, adj=0, cex=1.1)
+
+plot(StrD ~ Altitude, data=data.full.tundra.deadwood, xlab="", ylab="", yaxt="n", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="M)", outer=F, adj=0, cex=1.1)
+axis(side=2, las=1, at=c(0,1,2,3,4))
+lines(predict.tundra.deadwood.StrD.Altitude ~ newdata.tundra.Altitude, lwd=2, col="blue")
+plot(StrD ~ DistFromLake, data=data.full.tundra.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="N)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.deadwood.StrD.DistFromLake ~ newdata.tundra.DistFromLake, lwd=2, col="blue")
+plot(StrD ~ Microtopography, data=data.full.tundra.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="O)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ pH, data=data.full.tundra.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="P)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.deadwood.StrD.pH ~ newdata.tundra.pH, lwd=2, col="blue")
+
+plot(StrD ~ Altitude, data=data.full.tundra.liveplants, xlab="Elevation (m)", ylab="", las=1, yaxt="s", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="Q)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ DistFromLake, data=data.full.tundra.liveplants, xlab="Distance from/n lakes (m)", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="R)", outer=F, adj=0, cex=1.1)
+lines(predict.tundra.liveplants.StrD.DistFromLake ~ newdata.tundra.DistFromLake, lwd=2, col="blue")
+plot(StrD ~ Microtopography, data=data.full.tundra.liveplants, xlab="Microtopography (cm²)", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="S)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ pH, data=data.full.tundra.liveplants, xlab="pH", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="T)", outer=F, adj=0, cex=1.1)
+
+mtext(side=1, at=0.125 + 0.25*c(0,1,2,3), text=c("Elevation (m)", "Distance from\nlakes (m)", "Variance in\nmicrotopography (cm²)", "pH"), outer=T, line=3, padj=0)
+mtext(side=2, at=c(0.1, 0.3, 0.5, 0.7, 0.9), text=c("Live plants", "Deadwood", "Woody", "Herbaceous", "Ground"), outer=T, line=2)
+mtext(side=2, text="Number of structural elements", outer=T, line=3.5)
+
+```
+
+\newpage
+
+## StrD - Ecotone
+
+```{r echo=FALSE, fig.height=8}
+
+par(mfrow = c(5,4), mar=c(1,1,2,1), oma=c(6,5,2,2))
+plot(StrD ~ Altitude, data=data.full.ecotone.ground, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="A)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ DistFromLake, data=data.full.ecotone.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="B)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ Microtopography, data=data.full.ecotone.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="C)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.ground.StrD.Microtopography ~ newdata.ecotone.Microtopography, lwd=2, col="blue")
+plot(StrD ~ pH, data=data.full.ecotone.ground, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="D)", outer=F, adj=0, cex=1.1)
+
+plot(StrD ~ Altitude, data=data.full.ecotone.herbaceous, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="E)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ DistFromLake, data=data.full.ecotone.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="F)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ Microtopography, data=data.full.ecotone.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="G)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ pH, data=data.full.ecotone.herbaceous, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="H)", outer=F, adj=0, cex=1.1)
+
+
+plot(StrD ~ Altitude, data=data.full.ecotone.woody, xlab="", ylab="", yaxt="s", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="I)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ DistFromLake, data=data.full.ecotone.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="J)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ Microtopography, data=data.full.ecotone.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="K)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ pH, data=data.full.ecotone.woody, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="L)", outer=F, adj=0, cex=1.1)
+
+plot(StrD ~ Altitude, data=data.full.ecotone.deadwood, xlab="", ylab="", yaxt="n", las=1, xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="M)", outer=F, adj=0, cex=1.1)
+axis(side=2, las=1, at=c(0,1,2,3,4))
+plot(StrD ~ DistFromLake, data=data.full.ecotone.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="N)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ Microtopography, data=data.full.ecotone.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="O)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ pH, data=data.full.ecotone.deadwood, xlab="", ylab="", yaxt="n", xaxt="n", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="P)", outer=F, adj=0, cex=1.1)
+
+plot(StrD ~ Altitude, data=data.full.ecotone.liveplants, xlab="Elevation (m)", ylab="", las=1, yaxt="s", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="Q)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ DistFromLake, data=data.full.ecotone.liveplants, xlab="Distance from/n lakes (m)", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="R)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ Microtopography, data=data.full.ecotone.liveplants, xlab="Microtopography (cm²)", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="S)", outer=F, adj=0, cex=1.1)
+plot(StrD ~ pH, data=data.full.ecotone.liveplants, xlab="pH", ylab="", yaxt="n", xaxt="s", pch=21, bg=alpha("black", 0.1)); mtext(side=3, text="T)", outer=F, adj=0, cex=1.1)
+lines(predict.ecotone.liveplants.StrD.pH ~ newdata.ecotone.pH, lwd=2, col="blue")
+
+
+mtext(side=1, at=0.125 + 0.25*c(0,1,2,3), text=c("Elevation (m)", "Distance from\nlakes (m)", "Variance in\nmicrotopography (cm²)", "pH"), outer=T, line=3, padj=0)
+mtext(side=2, at=c(0.1, 0.3, 0.5, 0.7, 0.9), text=c("Live plants", "Deadwood", "Woody", "Herbaceous", "Ground"), outer=T, line=2)
+mtext(side=2, text="Number of structural elements", outer=T, line=3.5)
+
+```
+
+# Correlation between StrS and StrD
+```{r echo=FALSE, fig.height=8}
+par(mfrow=c(Nlayers, Ntransects), mar=c(3,2,2,2), oma=c(5,6,4,4), cex=0.5)
+for(i in 1:Nlayers) {
+	for(j in 1:Ntransects) {
+		StrDiv.i.j <- subset(StrDiv.noZero, Layer==layer.names[i] & Transect == transects[j])
+		plot(StrD ~ StrS, data=StrDiv.i.j, bg=alpha("black",0.3), pch=21, xlab="", ylab="")
+		if(j == 1) mtext(text=layer.names.plot[i], side=2, line=4.3, col="gray40", cex=cex.outer)
+		if(i == 1) mtext(text=transects.plot[j], side=3, line=1, col="gray40", cex=cex.outer)
+		text(x=min(StrDiv.i.j$StrS), y=max(StrDiv.i.j$StrD), labels=formatC(paste("R²=",round(cor(StrDiv.i.j$StrS, StrDiv.i.j$StrD)^2, 2), sep=""),digits=2), adj=c(0,1), cex=1.2)
+	}
+}
+mtext(side=1, outer=T, text="Number of structural elements (StrS)", line=0, cex=1)
+mtext(side=2, outer=T, text="Dissimilarity-based structural diversity (StrD)", line=0.5, cex=1)
+mtext(side=2, outer=T, text="Layer", line=4.5, col="gray40", cex=cex.outer)
+mtext(side=3, outer=T, text="Transect", line=2, col="gray40", cex=cex.outer)
+```
+
