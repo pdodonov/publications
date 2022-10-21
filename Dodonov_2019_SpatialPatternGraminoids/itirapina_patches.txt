@@ -1,0 +1,12 @@
+Patch	Start	End
+railroad	1	12
+grassland_invaded	13	119
+firebreak	120	132
+grassland	133	419
+firebreak	420	431
+ecotone	432	462
+forest	463	597
+ecotone	598	628
+grassland	629	668
+firebreak	669	682
+grassland	683	734

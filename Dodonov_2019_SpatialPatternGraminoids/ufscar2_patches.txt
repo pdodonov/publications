@@ -1,0 +1,10 @@
+Patch	Start	End
+firebreak	1	8
+cerrado_regenerating	9	55
+firebreak	56	61
+cerrado	62	70
+firebreak	71	75
+ecotone	76	114
+forest	115	238
+cerrado	239	295
+firebreak	296	301

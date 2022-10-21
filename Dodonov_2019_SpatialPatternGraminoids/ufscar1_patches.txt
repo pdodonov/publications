@@ -1,0 +1,11 @@
+Patch	Start	End
+grassland_invaded	1	32
+firebreak	33	35
+grassland_invaded	36	104
+firebreak	105	108
+cerrado	109	331
+firebreak	332	336
+cerrado_regenerating	337	545
+firebreak	546	549
+cerrado_regenerating	550	1328
+firebreak	1329	1334
