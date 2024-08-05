@@ -29,7 +29,7 @@ setwd("e:/Pavel/Profissional/Pesquisa/MyPapers_Working/Aluane_2022_Cabrucas/")
 
 # Univariate data
 
-dados_cac <- read.csv2("dadoscacauabexo.csv", stringsAsFactors=T)
+dados_cac <- read.csv2("FerreiraEtAl_data.csv", stringsAsFactors=T)
 str(dados_cac)
 
 
