@@ -1,0 +1,128 @@
+Estudo	Aberturas_lineares	Agropecuaria_ocupaca	Floresta_boreal	Floresta_temperada	Floresta_tropical	Regiao	Planta_familia	Planta_especie	Inseto_ordem	Inseto_familia	Inseto_tribo	Inseto_genero	Inseto_especie	Abundancia	Riqueza	Visitacao	Producao_frutos	Producao_sementes	Taxa_cruzamento	Qualidade_sementes	Resposta 
+Jules 1999	0	1	0	1	0	Temperada	Liliaceae	Trillium ovatum	Coleoptera e Hymenoptera	Staphylinidae, Nitidulidae, Lepturinae e Apidae	NA	NA	NA	0	0	0	0	1	0	0	0
+Jules 1999	0	1	0	1	0	Temperada	Liliaceae	Trillium ovatum	Coleoptera e Hymenoptera	Staphylinidae, Nitidulidae, Lepturinae e Apidae	NA	NA	NA	0	0	0	0	1	0	0	-1
+Jules 1999	0	1	0	1	0	Temperada	Liliaceae	Trillium ovatum	Coleoptera e Hymenoptera	Staphylinidae, Nitidulidae, Lepturinae e Apidae	NA	NA	NA	0	0	0	0	1	0	0	-1
+Jules 1999	0	1	0	1	0	Temperada	Liliaceae	Trillium ovatum	Coleoptera e Hymenoptera	Staphylinidae, Nitidulidae, Lepturinae e Apidae	NA	NA	NA	0	0	0	0	1	0	0	-1
+Jules 1999	0	1	0	1	0	Temperada	Liliaceae	Trillium ovatum	Coleoptera e Hymenoptera	Staphylinidae, Nitidulidae, Lepturinae e Apidae	NA	NA	NA	0	0	0	0	1	0	0	0
+Jules 1999	0	1	0	1	0	Temperada	Liliaceae	Trillium ovatum	Coleoptera e Hymenoptera	Staphylinidae, Nitidulidae, Lepturinae e Apidae	NA	NA	NA	0	0	0	0	1	0	0	-1
+Jules 1999	0	1	0	1	0	Temperada	Liliaceae	Trillium ovatum	Coleoptera e Hymenoptera	Staphylinidae, Nitidulidae, Lepturinae e Apidae	NA	NA	NA	0	0	1	0	0	1	0	-1
+Brosi 2009	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	Euglossa e Eulaema	NA	1	0	0	0	0	0	0	1
+Brosi 2009	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	Euglossa e Eulaema	NA	0	1	0	0	0	0	0	1
+Brosi 2009	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	Euglossa e Eulaema	NA	1	0	0	0	0	0	0	1
+Brosi 2009	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	Euglossa e Eulaema	NA	0	1	0	0	0	0	0	-1
+Taki 2007	0	1	0	1	0	Temperada	Liliaceae	Erythronium americanum	Hymenoptera	Colletidae, Megachilidae, Halictidae, Andrenidae, Apidae	Colletini, Halictini	Colletes, Osmia, Lasioglossum, Andrena, Ceratina, Nomada	NA	1	0	0	0	0	0	0	0
+Taki 2007	0	1	0	1	0	Temperada	Liliaceae	Erythronium americanum	Hymenoptera	Colletidae, Megachilidae, Halictidae, Andrenidae, Apidae	Colletini, Halictini	Colletes, Osmia, Lasioglossum, Andrena, Ceratina, Nomada	NA	0	1	0	0	0	0	0	0
+Taki 2007	0	1	0	1	0	Temperada	Liliaceae	Erythronium americanum	Hymenoptera	Colletidae, Megachilidae, Halictidae, Andrenidae, Apidae		Colletes, Osmia, Lasioglossum, Andrena, Ceratina, Nomada	NA	0	0	0	0	1	0	0	0
+Burgess 2006	0	1	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera	Colletidae	Paracolletini	Leioproctus	Leioproctus sp	0	0	1	0	0	0	0	1
+Burgess 2006	0	1	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera	Colletidae	Hylaeini	Hylaeus	Hylaeus agilis	0	0	1	0	0	0	0	1
+Burgess 2006	0	1	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera	Colletidae	NA	NA	NA	0	0	1	0	0	0	0	1
+Burgess 2006	0	1	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera	Apidae	Apini	Apis	Apis mellifera	0	0	1	0	0	0	0	1
+Burgess 2006	0	1	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	1	0	0	0	0	1
+Burgess 2006	0	1	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Diptera	NA	NA	NA	NA	0	0	1	0	0	0	0	1
+Burgess 2006	1	0	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera	Colletidae	Paracolletini	Leioproctus	Leioproctus sp	0	0	1	0	0	0	0	1
+Burgess 2006	1	0	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera	Colletidae	Hylaeini	Hylaeus	Hylaeus agilis	0	0	1	0	0	0	0	1
+Burgess 2006	1	0	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera	Colletidae	NA	NA	NA	0	0	1	0	0	0	0	1
+Burgess 2006	1	0	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera	Apidae	Apini	Apis	Apis mellifera	0	0	1	0	0	0	0	1
+Burgess 2006	1	0	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Diptera	NA	NA	NA	NA	0	0	1	0	0	0	0	-1
+Burgess 2006	0	1	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	0	1	0	0	0	1
+Burgess 2006	1	0	0	1	0	Temperada	Loranthaceae	Peraxilla tetrapetala	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	0	1	0	0	0	1
+Tomimatsu 2004	0	1	0	1	0	Temperada	Melanthiaceae	Trillium camschatcense	Coleoptera e Diptera	NA	NA	NA	NA	0	0	0	0	1	0	0	0
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	1	0	0	0	0	-1
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	1	0	0	0	0	0
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera	Apidae	Apini	Apis	Apis mellifera	0	0	1	0	0	0	0	-1
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera	Apidae	Apini	Apis	Apis mellifera	0	0	1	0	0	0	0	0
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	1	0	0	0	0	0
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	1	0	0	0	0	0
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	0	1	0	0	0	-1
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	0	1	0	0	0	0
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	0	0	1	0	0	0
+Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	0	0	1	0	0	0
+Aguirre-Gutierrez 2015	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	Apidae	Bombini	NA	NA	0	1	0	0	0	0	0	1
+Aguirre-Gutierrez 2015	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	Apoidea 	NA	NA	NA	0	1	0	0	0	0	0	0
+Aguirre-Gutierrez 2015	0	1	1	0	0	Temperada	NA	NA	Lepidoptera	Papilionoidea e Hesperioidea	NA	NA	NA	0	1	0	0	0	0	0	-1
+Aguirre-Gutierrez 2015	0	1	1	0	0	Temperada	NA	NA	Diptera	Syrphidae	NA	NA	NA	0	1	0	0	0	0	0	0
+Goodell 2010	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	1	0	0	0	0	0
+Goodell 2010	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	1	0	0	0	0	1
+Goodell 2010	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera	Apidae	Apini	Apis	Apis mellifera	0	0	1	0	0	0	0	0
+Goodell 2010	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	1	0	0	0	0	1
+Goodell 2010	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera	Apidae	Apini	Apis	Apis mellifera	0	0	1	0	0	0	0	1
+Goodell 2010	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	1	0	0	0	0	0
+Goodell 2010	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	1	0	0	1	0	1
+Goodell 2010	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	1	0	0	1	0	1
+Diaz-Forero 2013	0	1	0	1	0	Temperada	NA	NA	Hymenoptera	Apidae	Bombini	Bombus	NA	1	0	0	0	0	0	0	1
+Diaz-Forero 2013	0	1	0	1	0	Temperada	NA	NA	Hymenoptera	Apidae	Bombini	Bombus	NA	0	1	0	0	0	0	0	-1
+Storck-Tonon 2017	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	Euglossa e Eulaema	NA	0	1	0	0	0	0	0	1
+Storck-Tonon 2017	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	Euglossa e Eulaema	NA	0	1	0	0	0	0	0	-1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Hymenoptera	Andrenidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Hymenoptera	Apidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Hymenoptera	Colletidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Hymenoptera	Halictidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Hymenoptera	Megachilidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Diptera	Bombyliidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Diptera	Syrphidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Diptera	Tachinidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Lepidoptera	Pieridae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Hymenoptera	Andrenidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Hymenoptera	Apidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Hymenoptera	Halictidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Diptera	Muscoidea	NA	NA	NA	1	0	0	0	0	0	0	0
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Diptera	Syrphidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Jackson 2014	1	0	0	1	0	Temperada	NA	NA	Diptera	Tachinidae	NA	NA	NA	1	0	0	0	0	0	0	0
+Botsch 2017	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	Euglossa, Eufriesea, e Eulaema	NA	0	1	0	0	0	0	0	0
+Valdes 2011	0	1	0	1	0	Temperada	Primulaceae	Primula vulgaris	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	0	1	0	0	0	1
+Valdes 2011	0	1	0	1	0	Temperada	Primulaceae	Primula vulgaris	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	0	1	0	0	0	-1
+Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Phaius delavayi	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	1	0	0	0	0	-1
+Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Phaius delavayi	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	1	0	0	0	0	-1
+Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Phaius delavayi	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	0	1	0	0	0	-1
+Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Phaius delavayi	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	0	1	0	0	0	-1
+Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Ponerorchis chusua	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	1	0	0	0	0	-1
+Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Ponerorchis chusua	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	1	0	0	0	0	0
+Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Ponerorchis chusua	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	0	1	0	0	0	-1
+Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Ponerorchis chusua	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	0	1	0	0	0	-1
+Bennett 2014	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	Apidae	NA	NA	NA	0	0	1	0	0	0	0	1
+Bennett 2014	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	Apoidea 	NA	NA	NA	0	0	1	0	0	0	0	0
+De Assis Pires 2014	1	0	0	0	1	Tropical	Euphorbiaceae	Senefeldera verticillata 	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	0	1	0	0	0	-1
+De Assis Pires 2014	1	0	0	0	1	Tropical	Euphorbiaceae	Senefeldera verticillata 	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	0	1	0	0	0	0
+Ramos 2008	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera	NA	NA	NA	NA	0	0	0	0	0	1	0	0
+Barriball 2014	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	0	0	0	1	0	-1
+Valdivia 2011	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	1	0	0	0	0	-1
+Valdivia 2011	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	1	0	0	0	0	-1
+Valdivia 2011	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	0	1	0	0	0	-1
+Valdivia 2011	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	0	1	0	0	0	-1
+Valdivia 2011	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	0	0	1	0	0	-1
+Valdivia 2011	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	0	0	1	0	0	-1
+Valdivia 2011	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	0	0	1	0	0	-1
+Valdivia 2011	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	0	0	1	0	0	0
+Ramos 2007	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera	NA	NA	NA	NA	0	0	0	0	0	0	1	0
+Ramos 2007	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera	NA	NA	NA	NA	0	0	0	0	0	0	1	0
+Ramos 2007	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera	NA	NA	NA	NA	0	0	0	0	0	0	1	0
+Mayes 2019	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	NA	NA	NA	0	1	0	0	0	0	0	1
+Menezes 2018	1	0	0	0	1	Tropical	Lecythidaceae	Eschweilera tetrapetala	Hymenoptera	Apidae	Xylocopini	Xylocopa	NA	0	0	0	1	0	0	0	-1
+Menezes 2018	1	0	0	0	1	Tropical	Lecythidaceae	Eschweilera tetrapetala	Hymenoptera e Lepidoptera	NA	NA	NA	NA	0	1	0	0	0	0	0	-1
+Collins 2009	1	0	0	1	0	Temperada	Asteraceae	Echinacea laevigata	Hymenoptera e Lepidoptera	Apidae, Halictidae, Nomadinae, Scoliidae, Sphecidae, Nymphalidae, Hesperiidae	NA	NA	NA	0	0	1	0	0	0	0	0
+Collins 2009	1	0	0	1	0	Temperada	Asteraceae	Echinacea laevigata	Hymenoptera e Lepidoptera	Apidae, Halictidae, Nomadinae, Scoliidae, Sphecidae, Nymphalidae, Hesperiidae	NA	NA	NA	0	1	0	0	0	0	0	0
+Valdivia 2018	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	0	0	1	0	0	-1
+Valdivia 2018	0	1	0	1	0	Temperada	Alstroemeriaceae	Bomarea salsilla	Hymenoptera, Diptera, Lepidoptera	Apidae, Pieridae e Bombyliidae	NA	NA	NA	0	0	0	0	1	0	0	0
+da Costa 2021	0	1	0	0	1	Tropical	Cyperaceae	Rhynchospora cephalotes	Hymenoptera	Apidae e Halictidae	NA	NA	NA	0	0	1	0	0	0	0	-1
+Hagen Kraemer 2010	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	NA	NA	NA	1	0	0	0	0	0	0	1
+Hagen Kraemer 2010	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	NA	NA	NA	0	1	0	0	0	0	0	1
+Hagen Kraemer 2010	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	NA	NA	NA	0	0	1	0	0	0	0	1
+Da Rocha-Filho 2017	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	NA	NA	NA	NA	1	0	0	0	0	0	0	1
+Ye 2021	0	1	0	1	0	Temperada	Labiatae	Ajuga decumbens	Hymenoptera	NA	NA	NA	NA	1	0	0	0	0	0	0	1
+Ye 2021	0	1	0	1	0	Temperada	Labiatae	Ajuga decumbens	Hymenoptera	NA	NA	NA	NA	0	1	0	0	0	0	0	1
+Ye 2021	0	1	0	1	0	Temperada	Labiatae	Ajuga decumbens	Hymenoptera e Lepidoptera	NA	NA	NA	NA	0	0	0	1	0	0	0	1
+Olynyk 2021	1	0	0	1	0	Temperada	NA	NA	Hymenoptera	NA	NA	NA	NA	1	0	0	0	0	0	0	-1
+Nelson 2021	1	0	1	1	0	Temperada	NA	NA	Hymenoptera	NA	NA	NA	NA	1	0	0	0	0	0	0	1
+Nelson 2021	1	0	1	1	0	Temperada	NA	NA	Hymenoptera	NA	NA	NA	NA	0	1	0	0	0	0	0	1
+Coswosk 2018	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	Euglossa	NA	1	0	0	0	0	0	0	1
+Coswosk 2018	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	NA	NA	0	1	0	0	0	0	0	0
+Coswosk 2018	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	Eulaema	NA	1	0	0	0	0	0	0	-1
+Ren 2023	0	1	0	1	0	Temperada	NA	NA	NA	NA	NA	NA	NA	1	0	0	0	0	0	0	1
+Ren 2023	0	1	0	1	0	Temperada	NA	NA	NA	NA	NA	NA	NA	0	1	0	0	0	0	0	1
+Seifert 2022	0	1	0	0	1	Tropical	NA	NA	Hymenoptera, Coleoptera e Diptera	NA	NA	NA	NA	1	0	0	0	0	0	0	1
+Dartnell 2022	0	1	0	1	0	Temperada	NA	NA	Lepidoptera	NA	NA	NA	NA	0	1	0	0	0	0	0	0
+Arnell 2023	1	0	0	1	0	Temperada	Thymelaeaceae	Daphne mezereum	Coleoptera, Diptera, Hemiptera, Hymenoptera e Lepidoptera	NA	NA	NA	NA	0	0	0	1	0	0	0	1
+Aguiar 2015	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	NA	NA	1	0	0	0	0	0	0	-1
+Aguiar 2015	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	NA	NA	0	1	0	0	0	0	0	-1
+Aguiar 2015	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	NA	NA	1	0	0	0	0	0	0	-1
+Aguiar 2015	0	1	0	0	1	Tropical	NA	NA	Hymenoptera	Apidae	Euglossini	NA	NA	0	1	0	0	0	0	0	-1
