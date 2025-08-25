@@ -38,7 +38,7 @@ Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Dipt
 Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	0	0	1	0	0	0
 Ramos 2006	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera, Diptera, Lepidoptera	NA	NA	NA	NA	0	0	0	0	1	0	0	0
 Aguirre-Gutierrez 2015	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	Apidae	Bombini	NA	NA	0	1	0	0	0	0	0	1
-Aguirre-Gutierrez 2015	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	Apoidea 	NA	NA	NA	0	1	0	0	0	0	0	0
+Aguirre-Gutierrez 2015	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	ApoideaÂ 	NA	NA	NA	0	1	0	0	0	0	0	0
 Aguirre-Gutierrez 2015	0	1	1	0	0	Temperada	NA	NA	Lepidoptera	Papilionoidea e Hesperioidea	NA	NA	NA	0	1	0	0	0	0	0	-1
 Aguirre-Gutierrez 2015	0	1	1	0	0	Temperada	NA	NA	Diptera	Syrphidae	NA	NA	NA	0	1	0	0	0	0	0	0
 Goodell 2010	0	1	0	1	0	Temperada	Caprifoliaceae	Lonicera maackii	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	1	0	0	0	0	0
@@ -80,7 +80,7 @@ Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Ponerorchis chusua	Hymenoptera	Apidae
 Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Ponerorchis chusua	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	0	1	0	0	0	-1
 Huang 2009	1	0	0	1	0	Temperada	Orchidaceae	Ponerorchis chusua	Hymenoptera	Apidae	Bombini	Bombus	NA	0	0	0	1	0	0	0	-1
 Bennett 2014	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	Apidae	NA	NA	NA	0	0	1	0	0	0	0	1
-Bennett 2014	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	Apoidea 	NA	NA	NA	0	0	1	0	0	0	0	0
+Bennett 2014	0	1	1	0	0	Temperada	NA	NA	Hymenoptera	ApoideaÂ 	NA	NA	NA	0	0	1	0	0	0	0	0
 De Assis Pires 2014	1	0	0	0	1	Tropical	Euphorbiaceae	Senefeldera verticillata 	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	0	1	0	0	0	-1
 De Assis Pires 2014	1	0	0	0	1	Tropical	Euphorbiaceae	Senefeldera verticillata 	Hymenoptera e Diptera	NA	NA	NA	NA	0	0	0	1	0	0	0	0
 Ramos 2008	0	1	0	0	1	Tropical	Rubiaceae	Psychotria tenuinervis	Hymenoptera	NA	NA	NA	NA	0	0	0	0	0	1	0	0
